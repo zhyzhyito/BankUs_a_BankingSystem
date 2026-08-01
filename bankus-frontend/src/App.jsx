@@ -33,8 +33,10 @@ function App() {
   const [editPassword, setEditPassword] = useState('');
   const [editBalance, setEditBalance] = useState('');
   const [editStatus, setEditStatus] = useState('');
-//Railway URL
-const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
+
+  // 🔴 Railway URL (API BASE)
+  const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
+
   const openLogin = () => {
     setIsLoginView(true);
     setErrorMsg('');
@@ -61,7 +63,7 @@ const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
 
   const fetchClientHistory = async (uname) => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/client/history', {
+      const response = await fetch(`${API_BASE_URL}/api/client/history`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: uname })
@@ -77,7 +79,7 @@ const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
 
   const fetchAdminClients = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/admin/clients');
+      const response = await fetch(`${API_BASE_URL}/api/admin/clients`);
       const data = await response.json();
       if (data.success) {
         setClientList(data.clients);
@@ -102,8 +104,8 @@ const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
     }
 
     const endpoint = isLoginView 
-      ? 'http://127.0.0.1:5000/api/login' 
-      : 'http://127.0.0.1:5000/api/register';
+      ? `${API_BASE_URL}/api/login` 
+      : `${API_BASE_URL}/api/register`;
 
     const payload = isLoginView 
       ? { username, password }
@@ -141,7 +143,7 @@ const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
       }
     } catch (err) {
       console.error(err);
-      setErrorMsg('Cannot connect to Python server. Make sure app.py is running!');
+      setErrorMsg('Cannot connect to Railway server.');
     }
   };
 
@@ -155,15 +157,15 @@ const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
     let payload = { username: loggedInUser.username, amount: Number(amount) };
 
     if (type === 'deposit') {
-      endpoint = 'http://127.0.0.1:5000/api/client/deposit';
+      endpoint = `${API_BASE_URL}/api/client/deposit`;
     } else if (type === 'withdraw') {
-      endpoint = 'http://127.0.0.1:5000/api/client/withdraw';
+      endpoint = `${API_BASE_URL}/api/client/withdraw`;
     } else if (type === 'transfer') {
       if (!recipient) {
         showError('Recipient Required', 'Please enter recipient username');
         return;
       }
-      endpoint = 'http://127.0.0.1:5000/api/client/transfer';
+      endpoint = `${API_BASE_URL}/api/client/transfer`;
       payload = { sender: loggedInUser.username, recipient, amount: Number(amount) };
     }
 
@@ -195,7 +197,7 @@ const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
 
   const handleUpdateClient = async (oldUsername) => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/admin/client/update', {
+      const response = await fetch(`${API_BASE_URL}/api/admin/client/update`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -224,7 +226,7 @@ const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
     showConfirm('Are you sure?', `Are you sure you want to delete ${clientUsername}?`, 'Yes, delete').then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch('http://127.0.0.1:5000/api/admin/client/delete', {
+          const response = await fetch(`${API_BASE_URL}/api/admin/client/delete`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: clientUsername })
