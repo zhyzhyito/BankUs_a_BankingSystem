@@ -33,9 +33,8 @@ function App() {
   const [editPassword, setEditPassword] = useState('');
   const [editBalance, setEditBalance] = useState('');
   const [editStatus, setEditStatus] = useState('');
-
-  const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
-
+//Railway URL
+const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
   const openLogin = () => {
     setIsLoginView(true);
     setErrorMsg('');
