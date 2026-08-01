@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
@@ -26,7 +26,7 @@ def ensure_default_users():
     client_password = os.getenv("DEFAULT_CLIENT_PASSWORD", "123456")
 
     default_users = [
-        {"username": "zhyrus", "password": client_password, "role": "client", "balance": 15000.0, "status": "Active"},
+        {"username": "zhyrus", "password": client_password, "role": "client", "balance": 0.0, "status": "Active"},
         {"username": "admin", "password": admin_password, "role": "admin", "balance": 0.0, "status": "Active"}
     ]
     for u in default_users:

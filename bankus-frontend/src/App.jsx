@@ -300,10 +300,10 @@ function App() {
         {/* MOBILE MENU DRAWER */}
         {!loggedInUser && (
           <div className={`mobile-nav-drawer ${mobileMenuOpen ? 'open' : ''}`}>
-            <a href="#about" onClick={() => setMobileMenuOpen(false)}>ℹ️ About us</a>
-            <a href="#products" onClick={() => setMobileMenuOpen(false)}>💳 Products</a>
-            <a href="#benefits" onClick={() => setMobileMenuOpen(false)}>🎁 Benefits</a>
-            <a href="#pricing" onClick={() => setMobileMenuOpen(false)}>🏷️ Pricing</a>
+            <a href="#about" onClick={() => setMobileMenuOpen(false)}>About us</a>
+            <a href="#products" onClick={() => setMobileMenuOpen(false)}>Products</a>
+            <a href="#benefits" onClick={() => setMobileMenuOpen(false)}>Benefits</a>
+            <a href="#pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
           </div>
         )}
 
@@ -779,13 +779,12 @@ function App() {
                   />
                 </div>
 
-                <div className="input-group">
+               {/*<div className="input-group">
                   <label>Role</label>
                   <select value={role} onChange={(e) => setRole(e.target.value)}>
                     <option value="client">Client User</option>
-                    <option value="admin">Administrator</option>
                   </select>
-                </div>
+                </div>*/}
 
                 <div className="input-group">
                   <label>Password</label>
