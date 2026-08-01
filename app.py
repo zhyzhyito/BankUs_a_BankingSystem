@@ -1,25 +1,37 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from supabase import create_client, Client
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-# Pinapayagan nito ang requests mula sa anumang domain (kasama ang devtunnels)
 CORS(app)
 
-SUPABASE_URL = "https://jhmnsnwjgrmpmpzohzox.supabase.co"
-SUPABASE_KEY = "sb_publishable_TQsG-VMZLgSFOnEDv_kGxw_Jx_-Yrij"
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+if not SUPABASE_URL or not SUPABASE_KEY:
+    print("[WARNING] Missing SUPABASE_URL or SUPABASE_KEY in environment variables!")
+
+supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY) if SUPABASE_URL and SUPABASE_KEY else None
 
 def ensure_default_users():
+    if not supabase:
+        return
+
+    admin_password = os.getenv("DEFAULT_ADMIN_PASSWORD", "adminpassword")
+    client_password = os.getenv("DEFAULT_CLIENT_PASSWORD", "123456")
+
     default_users = [
-        {"username": "zhyrus", "password": "123456", "role": "client", "balance": 15000.0, "status": "Active"},
-        {"username": "admin", "password": "adminpassword", "role": "admin", "balance": 0.0, "status": "Active"}
+        {"username": "zhyrus", "password": client_password, "role": "client", "balance": 15000.0, "status": "Active"},
+        {"username": "admin", "password": admin_password, "role": "admin", "balance": 0.0, "status": "Active"}
     ]
     for u in default_users:
         try:
-            res = supabase.table('users').upsert(u, on_conflict='username').execute()
-            print(f"[OK] User synced in Supabase: {u['username']}")
+            supabase.table('users').upsert(u, on_conflict='username').execute()
         except Exception as e:
             print(f"[SUPABASE ERROR] Cannot sync {u['username']}: {e}")
 
@@ -63,7 +75,6 @@ def register():
         
         return jsonify({"success": False, "message": "Registration failed"}), 400
     except Exception as e:
-        print(f"[REGISTER ERROR] {e}")
         return jsonify({"success": False, "message": str(e)}), 500
 
 @app.route('/api/login', methods=['POST'])
@@ -83,10 +94,7 @@ def login():
         
         return jsonify({"success": False, "message": "Invalid username or password!"}), 401
     except Exception as e:
-        print(f"[LOGIN EXCEPTION] {e}")
         return jsonify({"success": False, "message": str(e)}), 500
-
-# ==================== ADMIN ENDPOINTS ====================
 
 @app.route('/api/admin/clients', methods=['GET'])
 def get_all_clients():
@@ -147,8 +155,6 @@ def delete_client():
         return jsonify({"success": True, "message": f"Client {username} deleted successfully!"}), 200
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
-
-# ==================== CLIENT TRANSACTION ENDPOINTS ====================
 
 @app.route('/api/client/deposit', methods=['POST'])
 def deposit():
@@ -262,8 +268,7 @@ def get_history():
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 
-# ==================== MAIN RUNNER ====================
 if __name__ == '__main__':
     ensure_default_users()
-    print("BankUs Backend is running on http://0.0.0.0:5000")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
