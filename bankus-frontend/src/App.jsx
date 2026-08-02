@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-// I-import ang ating SweetAlert2 utility helpers
 import { showSuccess, showError, showConfirm } from './utils/alert';
 
 function App() {
@@ -8,7 +7,6 @@ function App() {
   const [isLoginView, setIsLoginView] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Form states
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -16,7 +14,6 @@ function App() {
   const [errorMsg, setErrorMsg] = useState('');
   const [loggedInUser, setLoggedInUser] = useState(null);
 
-  // Client Portal States
   const [amount, setAmount] = useState('');
   const [recipient, setRecipient] = useState('');
   const [showDepositModal, setShowDepositModal] = useState(false);
@@ -25,7 +22,6 @@ function App() {
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [transactionHistory, setTransactionHistory] = useState([]);
 
-  // Admin Portal States
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [clientList, setClientList] = useState([]);
   const [editingClient, setEditingClient] = useState(null);
@@ -34,7 +30,6 @@ function App() {
   const [editBalance, setEditBalance] = useState('');
   const [editStatus, setEditStatus] = useState('');
 
-  // 🔴 Railway URL (API BASE)
   const API_BASE_URL = 'https://web-production-a6006.up.railway.app';
 
   const openLogin = () => {
@@ -245,20 +240,17 @@ function App() {
     });
   };
 
-  // Calculations for Admin Dashboard Analytics
   const totalSystemBalance = clientList.reduce((acc, client) => acc + Number(client.balance || 0), 0);
   const activeClientsCount = clientList.filter(client => (client.status || 'Active') === 'Active').length;
 
   return (
     <div className="app-wrapper">
-      {/* LANDING PAGE HEADER & HERO */}
       <div className="hero-landing">
         <header className="hero-nav">
           <div className="hero-logo">
             <span className="logo-icon">❖</span> Bank<span>Us</span>
           </div>
 
-          {/* DESKTOP MENU LINKS */}
           {!loggedInUser && (
             <nav className="hero-menu">
               <a href="#about">About us</a>
@@ -268,7 +260,6 @@ function App() {
             </nav>
           )}
 
-          {/* AUTH BUTTONS & LOGGED-IN STATUS */}
           <div className="hero-auth-btns">
             {loggedInUser ? (
               <div className="user-profile-badge" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -284,7 +275,6 @@ function App() {
               </>
             )}
             
-            {/* HAMBURGER TOGGLE BUTTON */}
             {!loggedInUser && (
               <button 
                 className="hamburger-btn" 
@@ -297,7 +287,6 @@ function App() {
           </div>
         </header>
 
-        {/* MOBILE MENU DRAWER */}
         {!loggedInUser && (
           <div className={`mobile-nav-drawer ${mobileMenuOpen ? 'open' : ''}`}>
             <a href="#about" onClick={() => setMobileMenuOpen(false)}>About us</a>
@@ -307,7 +296,6 @@ function App() {
           </div>
         )}
 
-        {/* MAIN HERO SECTION */}
         <main className="hero-content">
           <div className="hero-text-side">
             <div className="category-tag">MONEY & FINANCIAL LITERACY</div>
@@ -406,7 +394,6 @@ function App() {
         </main>
       </div>
 
-      {/* CLIENT DASHBOARD PANEL (VISIBLE ONLY WHEN LOGGED IN AS CLIENT) */}
       {loggedInUser && loggedInUser.role === 'client' && (
         <section className="content-section dark-alt client-dashboard-panel" style={{ borderTop: '1px solid rgba(16, 185, 129, 0.2)' }}>
           <div className="section-container" style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'left' }}>
@@ -489,7 +476,6 @@ function App() {
         </section>
       )}
 
-      {/* --- ADDED ADMIN DASHBOARD PANEL (VISIBLE ONLY WHEN LOGGED IN AS ADMIN) --- */}
       {loggedInUser && loggedInUser.role === 'admin' && (
         <section id="admin-dashboard-section" className="content-section dark-alt admin-dashboard-panel" style={{ borderTop: '1px solid rgba(59, 130, 246, 0.2)' }}>
           <div className="section-container" style={{ maxWidth: '1100px', margin: '0 auto', textAlign: 'left' }}>
@@ -499,7 +485,6 @@ function App() {
               Live metrics, system statistics, and user account management overview for administrator <span style={{ color: '#3b82f6', fontWeight: '600' }}>{loggedInUser.username}</span>.
             </p>
 
-            {/* Admin Stats Grid */}
             <div className="stats-grid" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px', marginBottom: '30px' }}>
               <div className="stat-card" style={{ background: 'rgba(31, 41, 55, 0.6)', border: '1px solid rgba(59, 130, 246, 0.2)' }}>
                 <span style={{ fontSize: '0.8rem', color: '#9ca3af', textTransform: 'uppercase', fontWeight: '600' }}>Total System Assets</span>
@@ -534,7 +519,6 @@ function App() {
               </div>
             </div>
 
-            {/* Quick Registry Preview and Actions */}
             <div className="dashboard-sub-section" style={{ background: 'rgba(31, 41, 55, 0.4)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: '16px', padding: '24px' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <h4 style={{ fontSize: '1.1rem', color: '#fff' }}>👥 Registered Accounts Summary</h4>
@@ -578,7 +562,6 @@ function App() {
         </section>
       )}
 
-      {/* ABOUT US SECTION */}
       {!loggedInUser && (
         <section id="about" className="content-section">
           <div className="section-container">
@@ -607,7 +590,6 @@ function App() {
         </section>
       )}
 
-      {/* PRODUCTS SECTION */}
       {!loggedInUser && (
         <section id="products" className="content-section dark-alt">
           <div className="section-container">
@@ -637,7 +619,6 @@ function App() {
         </section>
       )}
 
-      {/* BENEFITS SECTION */}
       {!loggedInUser && (
         <section id="benefits" className="content-section">
           <div className="section-container">
@@ -671,7 +652,6 @@ function App() {
         </section>
       )}
 
-      {/* PRICING & RATES SECTION */}
       {!loggedInUser && (
         <section id="pricing" className="content-section dark-alt">
           <div className="section-container">
@@ -711,19 +691,16 @@ function App() {
         </section>
       )}
 
-      {/* FOOTER */}
       {!loggedInUser && (
         <footer className="app-footer">
           <p>© 2026 BankUs Digital Banking Inc. Regulated by BSP. Deposits insured by PDIC up to ₱500,000.</p>
         </footer>
       )}
 
-      {/* AUTH MODAL */}
       {showAuthModal && (
         <div className="modal-overlay" onClick={() => setShowAuthModal(false)}>
           <div className="card-deck-container" onClick={(e) => e.stopPropagation()}>
 
-            {/* LOGIN CARD */}
             <div className={`modal-card card-stacked ${isLoginView ? 'active-card' : 'behind-card'}`}>
               <button className="modal-close-btn" onClick={() => setShowAuthModal(false)}>✕</button>
               <h2>Welcome Back!</h2>
@@ -760,7 +737,6 @@ function App() {
               </div>
             </div>
 
-            {/* REGISTER CARD */}
             <div className={`modal-card card-stacked ${!isLoginView ? 'active-card' : 'behind-card'}`}>
               <button className="modal-close-btn" onClick={() => setShowAuthModal(false)}>✕</button>
               <h2>Create Account</h2>
@@ -778,13 +754,6 @@ function App() {
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
-
-               {/*<div className="input-group">
-                  <label>Role</label>
-                  <select value={role} onChange={(e) => setRole(e.target.value)}>
-                    <option value="client">Client User</option>
-                  </select>
-                </div>*/}
 
                 <div className="input-group">
                   <label>Password</label>
@@ -818,7 +787,6 @@ function App() {
         </div>
       )}
 
-      {/* DEPOSIT MODAL */}
       {showDepositModal && (
         <div className="modal-overlay" onClick={() => setShowDepositModal(false)}>
           <div className="custom-modal-box" onClick={(e) => e.stopPropagation()}>
@@ -833,7 +801,6 @@ function App() {
         </div>
       )}
 
-      {/* WITHDRAW MODAL */}
       {showWithdrawModal && (
         <div className="modal-overlay" onClick={() => setShowWithdrawModal(false)}>
           <div className="custom-modal-box" onClick={(e) => e.stopPropagation()}>
@@ -848,7 +815,6 @@ function App() {
         </div>
       )}
 
-      {/* TRANSFER MODAL */}
       {showTransferModal && (
         <div className="modal-overlay" onClick={() => setShowTransferModal(false)}>
           <div className="custom-modal-box" onClick={(e) => e.stopPropagation()}>
@@ -867,7 +833,6 @@ function App() {
         </div>
       )}
 
-      {/* TRANSACTION HISTORY MODAL */}
       {showHistoryModal && (
         <div className="modal-overlay" onClick={() => setShowHistoryModal(false)}>
           <div className="custom-modal-box wide" onClick={(e) => e.stopPropagation()}>
@@ -905,7 +870,6 @@ function App() {
         </div>
       )}
 
-      {/* ADMIN CLIENT MANAGER MODAL */}
       {showAdminModal && (
         <div className="modal-overlay" onClick={() => setShowAdminModal(false)}>
           <div className="custom-modal-box extra-wide" onClick={(e) => e.stopPropagation()}>

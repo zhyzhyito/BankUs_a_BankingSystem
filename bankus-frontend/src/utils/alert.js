@@ -1,8 +1,5 @@
 import Swal from 'sweetalert2';
 
-/**
- * Modern Success Alert (Auto-closes after 2 seconds)
- */
 export const showSuccess = (title, text = '') => {
   return Swal.fire({
     icon: 'success',
@@ -12,14 +9,11 @@ export const showSuccess = (title, text = '') => {
     timer: 2000,
     timerProgressBar: true,
     showConfirmButton: false,
-    background: '#1f2937', // Dark mode friendly (Dark gray)
-    color: '#f3f4f6'       // Light text color
+    background: '#1f2937',
+    color: '#f3f4f6'
   });
 };
 
-/**
- * Modern Error Alert
- */
 export const showError = (title, text = '') => {
   return Swal.fire({
     icon: 'error',
@@ -31,9 +25,6 @@ export const showError = (title, text = '') => {
   });
 };
 
-/**
- * Modern Confirmation Dialog (Puwede mong gamitin sa mga Delete o Logout kung kailangan ng confirmation)
- */
 export const showConfirm = (title, text, confirmButtonText = 'Yes') => {
   return Swal.fire({
     title: title,

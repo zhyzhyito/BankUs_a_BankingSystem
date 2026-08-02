@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/* --- BASE RESET & SMOOTH SCROLL --- */
 html { scroll-behavior: smooth; }
 
 * {
@@ -58,7 +57,6 @@ body {
 
 .hamburger-btn { display: none; background: transparent; border: none; color: #10b981; font-size: 1.5rem; cursor: pointer; z-index: 100; }
 
-/* MOBILE NAV DRAWER */
 .mobile-nav-drawer {
   display: flex; flex-direction: column; background: rgba(17, 24, 39, 0.98);
   border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; gap: 8px;
@@ -84,7 +82,6 @@ body {
 }
 .btn-circle-cta:hover { transform: scale(1.1) rotate(15deg); background: #059669; }
 
-/* DASHBOARD CONTROLS */
 .dashboard-controls { margin-top: 20px; width: 100%; }
 .client-action-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%; max-width: 400px; }
 .btn-dash-action {
@@ -97,7 +94,6 @@ body {
 .btn-dash-action.admin { width: 100%; max-width: 400px; background: #3b82f6; border-color: #60a5fa; color: #fff; }
 .btn-dash-action.admin:hover { background: #2563eb; color: #fff; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); }
 
-/* BANK CARD WITH HOVER EFFECT */
 .hero-visual-side { position: relative; display: flex; justify-content: center; align-items: center; perspective: 1000px; width: 100%; margin-top: 20px; }
 .card-glowing-backdrop { position: absolute; width: 280px; height: 180px; background: radial-gradient(circle, rgba(16, 185, 129, 0.45) 0%, rgba(0, 0, 0, 0) 70%); filter: blur(35px); transition: 0.3s; }
 .glass-bank-card {
@@ -129,7 +125,6 @@ body {
   50% { transform: translateY(-6px) rotate(0.5deg); }
 }
 
-/* SECTIONS & HOVER CARDS */
 .content-section { padding: 60px 15px; border-top: 1px solid rgba(255, 255, 255, 0.05); }
 .content-section.dark-alt { background: rgba(17, 24, 39, 0.4); }
 .section-container { max-width: 1100px; margin: 0 auto; text-align: center; }
@@ -153,10 +148,8 @@ body {
 .product-icon { font-size: 2rem; margin-bottom: 10px; transition: transform 0.3s ease; }
 .product-card:hover .product-icon { transform: scale(1.15) rotate(5deg); }
 
-/* FOOTER */
 .app-footer { text-align: center; padding: 30px 15px; border-top: 1px solid rgba(255, 255, 255, 0.05); color: #6b7280; font-size: 0.85rem; }
 
-/* MODALS & CUSTOM TABLES */
 .modal-overlay {
   position: fixed; 
   top: 0; 
@@ -273,7 +266,6 @@ body {
 .type-tag.transfer-out { color: #f87171; }
 .type-tag.transfer-in { color: #60a5fa; }
 
-/* AUTH DECK STYLING */
 .card-deck-container { position: relative; width: 100%; max-width: 375px; min-height: 410px; }
 .modal-card.card-stacked { position: absolute; width: 100%; background: #111827; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; padding: 22px; box-sizing: border-box; transition: all 0.3s ease; }
 .modal-card.active-card { z-index: 10; opacity: 1; transform: scale(1); }
@@ -292,7 +284,6 @@ body {
 .switch-text span:hover { color: #34d399; }
 .error-badge { background: rgba(239, 68, 68, 0.2); color: #fca5a5; padding: 8px; border-radius: 6px; font-size: 0.75rem; margin-bottom: 10px; text-align: center; }
 
-/* RESPONSIVE BREAKPOINTS */
 @media (max-width: 900px) {
   .hero-menu { display: none; }
   .hamburger-btn { display: block; }

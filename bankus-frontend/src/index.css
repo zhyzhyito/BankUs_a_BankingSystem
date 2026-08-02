@@ -17,7 +17,6 @@ html, body, #root {
   color: #f8fafc;
 }
 
-/* --- HERO LANDING PAGE --- */
 .hero-landing {
   width: 100vw;
   min-height: 100vh;
@@ -336,7 +335,6 @@ html, body, #root {
   line-height: 1.5;
 }
 
-/* --- AUTHENTICATION & PORTAL --- */
 .auth-container, .portal-container {
   width: 100vw;
   min-height: 100vh;
@@ -406,7 +404,6 @@ html, body, #root {
 .error-badge { background: rgba(239, 68, 68, 0.2); color: #fca5a5; padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
 .info-badge { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; }
 
-/* NAVBAR & DASHBOARD */
 .navbar {
   width: 100%;
   display: flex;
