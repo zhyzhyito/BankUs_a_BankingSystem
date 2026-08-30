@@ -11,13 +11,16 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+SUPABASE_SECRET_KEY = os.getenv("SUPABASE_SECRET_KEY")
 
-if not SUPABASE_URL or not SUPABASE_KEY:
-    print("[WARNING] Missing SUPABASE_URL or SUPABASE_KEY in environment variables!")
+if not SUPABASE_URL or not SUPABASE_SECRET_KEY:
+    print("[WARNING] Missing SUPABASE_URL or SUPABASE_SECRET_KEY in environment variables!")
 
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY) if SUPABASE_URL and SUPABASE_KEY else None
-
+supabase: Client = (
+    create_client(SUPABASE_URL, SUPABASE_SECRET_KEY)
+    if SUPABASE_URL and SUPABASE_SECRET_KEY
+    else None
+)
 def ensure_default_users():
     if not supabase:
         return
